@@ -10,3 +10,14 @@
 2025-04-14 14:09:00,006 - Usuário 'Pablo' iniciou o sistema.
 2025-04-14 14:09:04,108 - Pablo limpou os dados do DataFrame.
 2025-04-14 14:09:28,793 - Pablo gerou os gráficos.
+2025-04-14 14:55:37,352 - Usuário 'Lucas' iniciou o sistema.
+2025-04-14 14:55:51,403 - Lucas forneceu caminho inválido: C:\Users\lucas.souza\OneDrive - Sistema FIBRA\Documentos\aprendizagemMaquina\Trabalhoo\Students_Grading_Dataset.csv
+2025-04-14 15:12:03,968 - Usuário 'Lucas' iniciou o sistema.
+2025-04-14 15:12:05,313 - Lucas forneceu caminho inválido: gfsegr
+2025-04-14 15:12:26,576 - Lucas limpou os dados do DataFrame.
+2025-04-14 15:12:35,873 - Lucas visualizou estatísticas da coluna Final_Score.
+2025-04-14 15:12:53,315 - Lucas gerou os gráficos.
+2025-04-14 15:14:59,645 - Usuário 'Lucas' iniciou o sistema.
+2025-04-14 15:15:04,960 - Lucas limpou os dados do DataFrame.
+2025-04-14 15:15:10,992 - Lucas visualizou estatísticas da coluna Total_Score.
+2025-04-14 15:15:55,333 - Lucas gerou os gráficos.

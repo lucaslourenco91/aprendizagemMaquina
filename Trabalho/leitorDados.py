@@ -20,23 +20,37 @@ while not re.match(r'^[A-Za-z]{3,}( [A-Za-z]{3,})*$', nome_usuario):
 logging.info(f"Usuário '{nome_usuario}' iniciou o sistema.")
 
 # --------------------------Solicita o caminho do arquivo------------------------------------------------
-caminho = input("Digite o caminho do arquivo CSV a ser analisado: ")
 
-if not os.path.exists(caminho):
-    print("Arquivo não encontrado.")
-    logging.error(f"{nome_usuario} forneceu caminho inválido: {caminho}")
-else:
-    try:
-        if caminho.endswith('.csv'):
-            df = pd.read_csv(caminho)
-        elif caminho.endswith('.json'):
-            df = pd.read_json(caminho)
-        else:
-            print("Formato de arquivo não suportado. Use CSV ou JSON.")
-            logging.warning(f"{nome_usuario} tentou carregar formato não suportado: {caminho}")
-    except Exception as e:
-        print(f"Erro ao carregar o arquivo: {e}")
-        logging.error(f"{nome_usuario} teve erro ao carregar arquivo: {e}")
+df = None 
+
+while True:
+    caminho = input("Digite o caminho do arquivo CSV a ser analisado (ou 000 para  do programa): ")
+
+    if caminho == "000":
+        print("Encerrando o programa...")
+        break
+
+    if not os.path.exists(caminho):
+        print("Arquivo não encontrado ou caminho inválido.")
+        logging.error(f"{nome_usuario} forneceu caminho do arquivo inválido inválido: {caminho}")
+    else:
+        try:
+            if caminho.endswith('.csv'):
+                df = pd.read_csv(caminho)
+            elif caminho.endswith('.json'):
+                df = pd.read_json(caminho)
+            else:
+                print("Formato de arquivo não suportado. Use CSV ou JSON.")
+                logging.warning(f"{nome_usuario} tentou carregar formato não suportado: {caminho}")
+                continue
+
+            print("Arquivo carregado com sucesso!")
+            break  
+
+        except Exception as e:
+            print(f"Erro ao carregar o arquivo: {e}")
+            logging.error(f"{nome_usuario} teve erro ao carregar arquivo: {e}")
+
 
 #------------------------------Limpeza de dados---------------------------------------------------------
 if df is not None:
