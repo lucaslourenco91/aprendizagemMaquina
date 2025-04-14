@@ -24,7 +24,7 @@ logging.info(f"Usuário '{nome_usuario}' iniciou o sistema.")
 df = None 
 
 while True:
-    caminho = input("Digite o caminho do arquivo CSV a ser analisado (ou 000 para  do programa): ")
+    caminho = input("Digite o caminho do arquivo CSV a ser analisado (ou 000 para sair do programa): ")
 
     if caminho == "000":
         print("Encerrando o programa...")
@@ -113,6 +113,7 @@ if df is not None:
 #-------------------------------Gera Gráficos--------------------------------------------------------------
 if df is not None:
     print("\n--- Gerando Gráficos ---")
+    print("\n--- Gráficos Gerados com sucesso ---")
 
     if 'Sleep_Hours_per_Night' in df.columns and 'Final_Score' in df.columns:
         plt.figure(figsize=(8, 6))

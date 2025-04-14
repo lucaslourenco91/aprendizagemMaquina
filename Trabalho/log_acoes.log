@@ -21,3 +21,12 @@
 2025-04-14 15:15:04,960 - Lucas limpou os dados do DataFrame.
 2025-04-14 15:15:10,992 - Lucas visualizou estatísticas da coluna Total_Score.
 2025-04-14 15:15:55,333 - Lucas gerou os gráficos.
+2025-04-14 15:54:21,962 - Usuário 'Professor' iniciou o sistema.
+2025-04-14 15:54:26,469 - Professor limpou os dados do DataFrame.
+2025-04-14 15:54:57,198 - Professor tentou acessar coluna inexistente: Agee
+2025-04-14 15:55:21,730 - Professor visualizou estatísticas da coluna Age.
+2025-04-14 15:55:47,216 - Professor gerou os gráficos.
+2025-04-14 16:04:00,668 - Usuário 'Isaac' iniciou o sistema.
+2025-04-14 16:04:24,036 - Isaac limpou os dados do DataFrame.
+2025-04-14 16:04:27,907 - Isaac visualizou estatísticas da coluna Age.
+2025-04-14 16:04:53,289 - Isaac gerou os gráficos.
