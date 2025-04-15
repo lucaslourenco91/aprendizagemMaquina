@@ -64,3 +64,29 @@
 2025-04-15 14:31:54,326 - Lucas consultou a visão geral dos dados.
 2025-04-15 14:32:16,595 - Lucas limpou os dados do DataFrame.
 2025-04-15 14:32:57,390 - Lucas gerou os gráficos.
+2025-04-15 14:34:44,602 - Usuário 'Lucas' iniciou o sistema.
+2025-04-15 14:34:47,760 - Lucas consultou a visão geral dos dados.
+2025-04-15 14:34:58,034 - Lucas limpou os dados do DataFrame.
+2025-04-15 14:35:12,568 - Lucas visualizou estatísticas da coluna Age.
+2025-04-15 14:44:28,212 - Lucas tentou acessar coluna inexistente: Isaac
+2025-04-15 14:44:41,781 - Lucas tentou acessar coluna inexistente: Stress_Level
+2025-04-15 14:44:49,210 - Lucas gerou os gráficos.
+2025-04-15 14:51:08,379 - Usuário 'Isaac' iniciou o sistema.
+2025-04-15 14:51:24,270 - Isaac consultou a visão geral dos dados.
+2025-04-15 14:51:33,969 - Isaac limpou os dados do DataFrame.
+2025-04-15 14:51:53,157 - Isaac gerou os gráficos.
+2025-04-15 16:11:25,938 - Usuário 'Lucas Lourenco' iniciou o sistema.
+2025-04-15 16:11:49,625 - Usuário 'lu' iniciou o sistema.
+2025-04-15 16:11:57,539 - lu forneceu caminho do arquivo inválido inválido: lu
+2025-04-15 16:12:25,484 - Usuário 'Lucas' iniciou o sistema.
+2025-04-15 16:12:58,541 - Usuário 'Pablo Coelho' iniciou o sistema.
+2025-04-15 16:13:54,109 - Usuário 'Pablo-Coelho' iniciou o sistema.
+2025-04-15 16:14:14,498 - Usuário 'Lucas' iniciou o sistema.
+2025-04-15 16:14:32,596 - Lucas forneceu caminho do arquivo inválido inválido: caminho01
+2025-04-15 16:14:38,827 - Lucas forneceu caminho do arquivo inválido inválido: caminho02
+2025-04-15 16:14:54,689 - Lucas consultou a visão geral dos dados.
+2025-04-15 16:14:58,009 - Lucas limpou os dados do DataFrame.
+2025-04-15 16:16:20,939 - Lucas gerou os gráficos.
+2025-04-15 16:16:42,562 - Usuário 'Lucas Lourenço' iniciou o sistema.
+2025-04-15 16:16:53,068 - Lucas Lourenço consultou a visão geral dos dados.
+2025-04-15 16:17:21,796 - Lucas Lourenço gerou os gráficos.

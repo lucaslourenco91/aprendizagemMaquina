@@ -11,19 +11,21 @@ logging.basicConfig(filename='log_acoes.log', level=logging.INFO, format='%(asct
 
 
 # --------------------------Solicita nome do usuário------------------------------------------------------
-nome_usuario = input("Digite seu nome: ")
-while not re.match(r'^[A-Za-z]{3,}( [A-Za-z]{3,})*$', nome_usuario):
-    print("Nome inválido. Deve conter apenas letras e pelo menos 3 caracteres por parte.")
-    nome_usuario = input("Digite seu nome: ")
+nome_usuario = input("Digite seu nome de usuário: ").strip()
+
+while not re.match(r'^[A-Za-zÀ-ÿ\'\- ]{3,}$', nome_usuario):
+    print("Nome inválido. Use apenas letras e digite apenas letras.")
+    nome_usuario = input("Digite seu nome : ").strip()
 
 logging.info(f"Usuário '{nome_usuario}' iniciou o sistema.")
+
 
 # --------------------------Solicita o caminho do arquivo------------------------------------------------
 
 df = None 
 
 while True:
-    caminho = input("Digite o caminho do arquivo CSV a ser analisado (ou 000 para sair do programa): ")
+    caminho = input("Digite o caminho do arquivo CSV ou JSON (ou digite 000 para sair do programa): ")
 
     if caminho == "000":
         print("Encerrando o programa...")
@@ -39,8 +41,8 @@ while True:
             elif caminho.endswith('.json'):
                 df = pd.read_json(caminho)
             else:
-                print("Formato de arquivo não suportado. Use CSV ou JSON.")
-                logging.warning(f"{nome_usuario} tentou carregar formato não suportado: {caminho}")
+                print("Formato de arquivo inválido. O arquivo deve ser CSV ou JSON.")
+                logging.warning(f"{nome_usuario} tentou carregar formato inválido: {caminho}")
                 continue
 
             print("Arquivo carregado com sucesso!")
@@ -57,11 +59,11 @@ if df is not None:
 
     total_registros = len(df)
 
-    # Contando homens e mulheres
+    # localizando a qtd de himens e mulheres
     quant_homens = (df['Gender'].str.lower() == 'male').sum() if 'Gender' in df.columns else "Coluna 'Gender' não encontrada"
     quant_mulheres = (df['Gender'].str.lower() == 'female').sum() if 'Gender' in df.columns else "Coluna 'Gender' não encontrada"
 
-    # Verificando coluna de educação dos pais
+    # coluna de educação dos pais sem valores
     col_educacao_pais = [col for col in df.columns if 'parent' in col.lower() and 'education' in col.lower()]
     if col_educacao_pais:
         col_edu = col_educacao_pais[0]
@@ -77,14 +79,16 @@ if df is not None:
 
     logging.info(f"{nome_usuario} consultou a visão geral dos dados.")
 
-    # Pergunta se deseja iniciar a limpeza
+   #------------------------------Limpeza de dados---------------------------------------------------------
+
+   
     while True:
         resposta = input("Deseja iniciar a limpeza dos dados? (S/N): ").strip().upper()
         if resposta == 'N':
             print("Encerrando o programa...")
             break
         elif resposta == 'S':
-            #------------------------------Limpeza de dados---------------------------------------------------------
+            
             print("\n--- Iniciando limpeza dos dados ---")
 
             col_educacao_pais = [col for col in df.columns if 'parent' in col.lower() and 'education' in col.lower()]
@@ -122,7 +126,7 @@ if df is not None:
         for col in colunas_numericas:
             print(f" - {col}")
 
-        coluna = input("Digite o nome da coluna para análise estatística (ou 999 para seguir em frente): ")
+        coluna = input("Digite o nome da coluna para análise estatística (ou 999 para seguir em frente e gerar gráficos): ")
 
         if coluna == "999":
             print("Encerrando análise estatística...")
@@ -146,8 +150,8 @@ if df is not None:
 
 #-------------------------------Gera Gráficos--------------------------------------------------------------
 if df is not None:
-    print("\n--- Gerando Gráficos ---")
-    print("\n--- Gráficos Gerados com sucesso ---")
+    print("\n--- Gerando gráficos ---")
+    print("\n--- Gráficos gerados com sucesso ---")
 
     if 'Sleep_Hours_per_Night' in df.columns and 'Final_Score' in df.columns:
         plt.figure(figsize=(8, 6))
