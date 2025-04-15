@@ -1,4 +1,3 @@
-
 #----------------------------importando pacotes de bibliotecas do Python------------------------------------
 import pandas as pd
 import os
@@ -51,32 +50,67 @@ while True:
             print(f"Erro ao carregar o arquivo: {e}")
             logging.error(f"{nome_usuario} teve erro ao carregar arquivo: {e}")
 
+#------------------------------Dados da base---------------------------------------------------------
 
-#------------------------------Limpeza de dados---------------------------------------------------------
 if df is not None:
-    print("\n--- Iniciando limpeza dos dados ---")
+    print("\n--- Visão geral dos dados carregados ---")
 
+    total_registros = len(df)
+
+    # Contando homens e mulheres
+    quant_homens = (df['Gender'].str.lower() == 'male').sum() if 'Gender' in df.columns else "Coluna 'Gender' não encontrada"
+    quant_mulheres = (df['Gender'].str.lower() == 'female').sum() if 'Gender' in df.columns else "Coluna 'Gender' não encontrada"
+
+    # Verificando coluna de educação dos pais
     col_educacao_pais = [col for col in df.columns if 'parent' in col.lower() and 'education' in col.lower()]
     if col_educacao_pais:
         col_edu = col_educacao_pais[0]
-        antes = len(df)
-        df = df.dropna(subset=[col_edu]).copy()
-        depois = len(df)
-        print(f"Registros removidos por educação dos pais vazia: {antes - depois}")
+        registros_sem_educacao = df[col_edu].isna().sum()
     else:
-        print("Coluna de educação dos pais não encontrada. Nenhum registro removido.")
+        col_edu = None
+        registros_sem_educacao = "Coluna sobre educação dos pais não encontrada"
 
-    col_attendance = [col for col in df.columns if 'attendance' in col.lower()]
-    if col_attendance:
-        col_att = col_attendance[0]
-        mediana = df[col_att].median()
-        df.loc[:, col_att] = df[col_att].fillna(mediana)
-        print(f"Valores nulos em '{col_att}' preenchidos com a mediana: {mediana}")
-        print(f"Soma total de Attendance: {df[col_att].sum()}")
-    else:
-        print("Coluna 'Attendance' não encontrada.")
+    print(f"Total de registros: {total_registros}")
+    print(f"Quantidade de homens: {quant_homens}")
+    print(f"Quantidade de mulheres: {quant_mulheres}")
+    print(f"Registros sem dados sobre educação dos pais ({col_edu}): {registros_sem_educacao}")
 
-    logging.info(f"{nome_usuario} limpou os dados do DataFrame.")
+    logging.info(f"{nome_usuario} consultou a visão geral dos dados.")
+
+    # Pergunta se deseja iniciar a limpeza
+    while True:
+        resposta = input("Deseja iniciar a limpeza dos dados? (S/N): ").strip().upper()
+        if resposta == 'N':
+            print("Encerrando o programa...")
+            break
+        elif resposta == 'S':
+            #------------------------------Limpeza de dados---------------------------------------------------------
+            print("\n--- Iniciando limpeza dos dados ---")
+
+            col_educacao_pais = [col for col in df.columns if 'parent' in col.lower() and 'education' in col.lower()]
+            if col_educacao_pais:
+                col_edu = col_educacao_pais[0]
+                antes = len(df)
+                df = df.dropna(subset=[col_edu]).copy()
+                depois = len(df)
+                print(f"Registros removidos por educação dos pais vazia: {antes - depois}")
+            else:
+                print("Coluna de educação dos pais não encontrada. Nenhum registro removido.")
+
+            col_attendance = [col for col in df.columns if 'attendance' in col.lower()]
+            if col_attendance:
+                col_att = col_attendance[0]
+                mediana = df[col_att].median()
+                df.loc[:, col_att] = df[col_att].fillna(mediana)
+                print(f"Valores nulos em '{col_att}' preenchidos com a mediana: {mediana}")
+                print(f"Soma total de Attendance: {df[col_att].sum()}")
+            else:
+                print("Coluna 'Attendance' não encontrada.")
+
+            logging.info(f"{nome_usuario} limpou os dados do DataFrame.")
+            break
+        else:
+            print("Comando inválido. Responda com 'S' para sim ou 'N' para não.")
 
 #---------------------------- Consulta Estatísticas-------------------------------------------------------
 if df is not None:
@@ -154,4 +188,3 @@ if df is not None:
         print("Coluna 'age' não encontrada para gráfico de pizza.")
 
     logging.info(f"{nome_usuario} gerou os gráficos.")
-

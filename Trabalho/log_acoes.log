@@ -30,3 +30,37 @@
 2025-04-14 16:04:24,036 - Isaac limpou os dados do DataFrame.
 2025-04-14 16:04:27,907 - Isaac visualizou estatísticas da coluna Age.
 2025-04-14 16:04:53,289 - Isaac gerou os gráficos.
+2025-04-14 16:26:10,816 - Usuário 'Lucas' iniciou o sistema.
+2025-04-14 16:26:19,748 - Lucas limpou os dados do DataFrame.
+2025-04-14 16:26:22,067 - Lucas visualizou estatísticas da coluna Age.
+2025-04-14 16:26:33,005 - Lucas gerou os gráficos.
+2025-04-15 09:04:37,023 - Usuário 'Lucas' iniciou o sistema.
+2025-04-15 09:04:50,094 - Lucas limpou os dados do DataFrame.
+2025-04-15 09:04:53,307 - Lucas visualizou estatísticas da coluna Age.
+2025-04-15 09:05:00,561 - Lucas visualizou estatísticas da coluna Age.
+2025-04-15 09:05:10,722 - Lucas visualizou estatísticas da coluna Age.
+2025-04-15 09:05:25,749 - Lucas gerou os gráficos.
+2025-04-15 12:14:34,064 - Usuário 'Lucas' iniciou o sistema.
+2025-04-15 12:14:37,236 - Lucas forneceu caminho do arquivo inválido inválido: dfsdf
+2025-04-15 12:14:42,164 - Lucas forneceu caminho do arquivo inválido inválido: ff
+2025-04-15 12:14:50,778 - Lucas limpou os dados do DataFrame.
+2025-04-15 12:14:54,026 - Lucas visualizou estatísticas da coluna Age.
+2025-04-15 12:14:55,588 - Lucas tentou acessar coluna inexistente: dg
+2025-04-15 13:31:13,300 - Usuário 'Lucas' iniciou o sistema.
+2025-04-15 13:31:26,391 - Usuário 'Lucas Lourenco' iniciou o sistema.
+2025-04-15 14:09:55,884 - Usuário 'Lucas' iniciou o sistema.
+2025-04-15 14:10:06,391 - Usuário 'Lucas' iniciou o sistema.
+2025-04-15 14:10:13,664 - Lucas limpou os dados do DataFrame.
+2025-04-15 14:10:31,859 - Lucas visualizou estatísticas da coluna Age.
+2025-04-15 14:10:45,276 - Lucas gerou os gráficos.
+2025-04-15 14:15:10,904 - Usuário 'Lucas' iniciou o sistema.
+2025-04-15 14:15:20,417 - Lucas limpou os dados do DataFrame.
+2025-04-15 14:27:59,300 - Lucas gerou os gráficos.
+2025-04-15 14:28:04,819 - Usuário 'Lucas' iniciou o sistema.
+2025-04-15 14:28:16,471 - Lucas consultou a visão geral dos dados.
+2025-04-15 14:28:16,479 - Lucas limpou os dados do DataFrame.
+2025-04-15 14:31:37,172 - Lucas gerou os gráficos.
+2025-04-15 14:31:47,156 - Usuário 'Lucas' iniciou o sistema.
+2025-04-15 14:31:54,326 - Lucas consultou a visão geral dos dados.
+2025-04-15 14:32:16,595 - Lucas limpou os dados do DataFrame.
+2025-04-15 14:32:57,390 - Lucas gerou os gráficos.
