@@ -1,7 +1,7 @@
 import math
 import copy
 
-# Constantes para representar os jogadores e uma célula vazia
+# definindo os jogadores "X" e "O"
 X = "X"
 O = "O"
 EMPTY = None
@@ -51,7 +51,7 @@ def result(board, action):
     if action not in actions(board):
         raise Exception("Ação inválida")
 
-    # Faz uma cópia profunda do tabuleiro para não alterar o original
+    # Faz uma deecopy do tabuleiro para não alterar o original
     new_board = copy.deepcopy(board)
     i, j = action
     new_board[i][j] = player(board)
@@ -64,7 +64,7 @@ def winner(board):
     Pode ser X, O ou None (se ainda não houver vencedor).
     """
     for player_ in [X, O]:
-        # Verifica todas as linhas
+        # Verifica as linhas
         for row in board:
             if all(cell == player_ for cell in row):
                 return player_
@@ -74,14 +74,14 @@ def winner(board):
             if all(board[row][col] == player_ for row in range(3)):
                 return player_
 
-        # Verifica as duas diagonais
+        # Verifica diagonais
         if all(board[i][i] == player_ for i in range(3)):
             return player_
 
         if all(board[i][2 - i] == player_ for i in range(3)):
             return player_
 
-    return None  # Sem vencedor
+    return None  # quando não hávencedor
 
 
 def terminal(board):
@@ -129,7 +129,7 @@ def minimax(board):
                 v = min_result
                 best_action = action
                 if v == 1:
-                    break  # Melhor resultado possível, pode parar
+                    break  # Melhor resultado possível, para o sistema
         return v, best_action
 
     # Função para o jogador MIN (O)
