@@ -1,38 +1,25 @@
 import math
 import copy
 
-# definindo os jogadores "X" e "O"
+# Definindo os jogadores "X" e "O"
 X = "X"
 O = "O"
 EMPTY = None
 
-
+# Cria o tabuleiro vazio (3x3)
 def initial_state():
-    """
-    Retorna o estado inicial do tabuleiro.
-    Um tabuleiro vazio (3x3) representado por listas dentro de uma lista.
-    """
     return [[EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY]]
 
-
+# Retorna o próximo jogador a jogar
 def player(board):
-    """
-    Retorna o jogador que tem o próximo turno no tabuleiro.
-    Se o número de X for igual ou menor que o número de O, é a vez de X.
-    Caso contrário, é a vez de O.
-    """
     x_count = sum(row.count(X) for row in board)
     o_count = sum(row.count(O) for row in board)
     return X if x_count <= o_count else O
 
-
+# Retorna as ações possíveis (posições vazias)
 def actions(board):
-    """
-    Retorna um conjunto com todas as ações possíveis no tabuleiro.
-    Cada ação é uma tupla (i, j) representando a linha e a coluna de uma célula vazia.
-    """
     possible_actions = set()
     for i in range(3):
         for j in range(3):
@@ -40,64 +27,40 @@ def actions(board):
                 possible_actions.add((i, j))
     return possible_actions
 
-
+# Retorna o novo tabuleiro após a jogada
 def result(board, action):
-    """
-    Retorna o novo estado do tabuleiro após o jogador fazer o movimento indicado por action.
-    Não altera o tabuleiro original.
-
-    Se a ação for inválida, levanta uma exceção.
-    """
     if action not in actions(board):
         raise Exception("Ação inválida")
 
-    # Faz uma deecopy do tabuleiro para não alterar o original
     new_board = copy.deepcopy(board)
     i, j = action
     new_board[i][j] = player(board)
     return new_board
 
-
+# Verifica se há um vencedor
 def winner(board):
-    """
-    Retorna o vencedor do jogo, se houver.
-    Pode ser X, O ou None (se ainda não houver vencedor).
-    """
     for player_ in [X, O]:
-        # Verifica as linhas
+        # Checa linhas
         for row in board:
             if all(cell == player_ for cell in row):
                 return player_
-
-        # Verifica todas as colunas
+        # Checa colunas
         for col in range(3):
             if all(board[row][col] == player_ for row in range(3)):
                 return player_
-
-        # Verifica diagonais
+        # Checa diagonais
         if all(board[i][i] == player_ for i in range(3)):
             return player_
-
         if all(board[i][2 - i] == player_ for i in range(3)):
             return player_
+    return None
 
-    return None  # quando não hávencedor
-
-
+# Retorna True se o jogo acabou (vitória ou empate)
 def terminal(board):
-    """
-    Retorna True se o jogo acabou (vitória ou empate), False caso contrário.
-    """
     return winner(board) is not None or all(cell != EMPTY for row in board for cell in row)
 
-
+# Retorna a pontuação final: 1 para X, -1 para O, 0 para empate
 def utility(board):
-    """
-    Retorna o valor da utilidade do tabuleiro terminal:
-    1 se X venceu,
-    -1 se O venceu,
-    0 em caso de empate.
-    """
     win = winner(board)
     if win == X:
         return 1
@@ -106,18 +69,14 @@ def utility(board):
     else:
         return 0
 
-
+# Algoritmo Minimax para escolher a melhor jogada
 def minimax(board):
-    """
-    Retorna a ação ótima para o jogador atual no tabuleiro.
-    Utiliza o algoritmo Minimax com uma pequena otimização (poda simplificada).
-    """
     if terminal(board):
         return None
 
     current_player = player(board)
 
-    # Função para o jogador MAX (X)
+    # Maximiza a utilidade (jogador X)
     def max_value(state):
         if terminal(state):
             return utility(state), None
@@ -129,10 +88,10 @@ def minimax(board):
                 v = min_result
                 best_action = action
                 if v == 1:
-                    break  # Melhor resultado possível, para o sistema
+                    break
         return v, best_action
 
-    # Função para o jogador MIN (O)
+    # Minimiza a utilidade (jogador O)
     def min_value(state):
         if terminal(state):
             return utility(state), None
@@ -144,10 +103,10 @@ def minimax(board):
                 v = max_result
                 best_action = action
                 if v == -1:
-                    break  # Pior resultado possível para O, pode parar
+                    break
         return v, best_action
 
-    # Decide quem vai jogar agora e chama a função correspondente
+    # Escolhe a função com base no jogador atual
     if current_player == X:
         _, action = max_value(board)
     else:
