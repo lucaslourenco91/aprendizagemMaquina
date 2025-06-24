@@ -125,19 +125,15 @@ def min_value(state):
         # Simula o resultado depois de fazer essa jogada
         novo_estado = result(state, acao)
 
-        # Chama a função max_value para ver como o jogador X vai reagir a essa jogada
         valor_do_oponente, _ = max_value(novo_estado)
-
-        # Se essa jogada der um resultado melhor (menor), atualiza
+ 
         if valor_do_oponente < melhor_valor:
             melhor_valor = valor_do_oponente
             melhor_acao = acao
 
-            # Se for o pior caso possível para O, já pode parar
             if melhor_valor == -1:
                 break
 
-    # Retorna o melhor valor encontrado e a jogada correspondente
     return melhor_valor, melhor_acao
 
 # Algoritmo Minimax para escolher a melhor jogada
