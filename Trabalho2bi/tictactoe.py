@@ -1,12 +1,12 @@
 import math
 import copy
 
-# Definindo os jogadores "X" e "O"
+# Define os jogadores
 X = "X"
 O = "O"
 EMPTY = None
 
-# Cria o tabuleiro vazio (3x3)
+# Cria o tabuleiro no formato do jogo da velha
 def initial_state():
     return [[EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY],
@@ -18,7 +18,7 @@ def player(board):
     o_count = sum(row.count(O) for row in board)
     return X if x_count <= o_count else O
 
-# Retorna as ações possíveis (posições vazias)
+# Retorna as ações possíveis, verificando as partes vazias do tabuleiro
 def actions(board):
     possible_actions = set()
     for i in range(3):
@@ -55,11 +55,22 @@ def winner(board):
             return player_
     return None
 
-# Retorna True se o jogo acabou (vitória ou empate)
+# Verifica se o jogo terminou (vitória ou empate)
 def terminal(board):
-    return winner(board) is not None or all(cell != EMPTY for row in board for cell in row)
+    # Primeiro, verifica se há um vencedor
+    if winner(board) is not None:
+        return True
 
-# Retorna a pontuação final: 1 para X, -1 para O, 0 para empate
+    # Agora, verifica se todas as casas estão preenchidas (sem EMPTY)
+    for row in board:
+        for cell in row:
+            if cell == EMPTY:
+                return False  # Ainda tem espaço vazio, o jogo continua
+
+    # Se não há vencedor e não há espaço vazio, é empate
+    return True
+
+# defina a pontuação final: 1 para X, -1 para O, 0 para empate
 def utility(board):
     win = winner(board)
     if win == X:
@@ -69,47 +80,76 @@ def utility(board):
     else:
         return 0
 
+# Função que escolhe a melhor jogada para o jogador X (o que quer maximizar o placar)
+def max_value(state):
+    # Se o jogo já terminou, retorna a pontuação final e nenhuma ação
+    if terminal(state):
+        return utility(state), None
+
+    # Inicializa a melhor pontuação com o menor valor possível
+    melhor_valor = float('-inf')
+    melhor_acao = None
+
+    # Testa todas as jogadas possíveis
+    for acao in actions(state):
+        # Simula o resultado depois de fazer essa jogada
+        novo_estado = result(state, acao)
+
+        # Chama a função min_value para ver como o jogador O vai reagir a essa jogada
+        valor_do_oponente, _ = min_value(novo_estado)
+
+        # Se essa jogada der um resultado melhor, atualiza
+        if valor_do_oponente > melhor_valor:
+            melhor_valor = valor_do_oponente
+            melhor_acao = acao
+
+            # Se for o melhor caso possível para X, já pode parar
+            if melhor_valor == 1:
+                break
+
+    # Retorna o melhor valor encontrado e a jogada correspondente
+    return melhor_valor, melhor_acao
+
+# Função que escolhe a melhor jogada para o jogador O (o que quer minimizar o placar)
+def min_value(state):
+    # Se o jogo já terminou, retorna a pontuação final e nenhuma ação
+    if terminal(state):
+        return utility(state), None
+
+    # Inicializa a melhor pontuação com o maior valor possível
+    melhor_valor = float('inf')
+    melhor_acao = None
+
+    # Testa todas as jogadas possíveis
+    for acao in actions(state):
+        # Simula o resultado depois de fazer essa jogada
+        novo_estado = result(state, acao)
+
+        # Chama a função max_value para ver como o jogador X vai reagir a essa jogada
+        valor_do_oponente, _ = max_value(novo_estado)
+
+        # Se essa jogada der um resultado melhor (menor), atualiza
+        if valor_do_oponente < melhor_valor:
+            melhor_valor = valor_do_oponente
+            melhor_acao = acao
+
+            # Se for o pior caso possível para O, já pode parar
+            if melhor_valor == -1:
+                break
+
+    # Retorna o melhor valor encontrado e a jogada correspondente
+    return melhor_valor, melhor_acao
+
 # Algoritmo Minimax para escolher a melhor jogada
 def minimax(board):
     if terminal(board):
         return None
 
-    current_player = player(board)
+    jogador_atual = player(board)
 
-    # Maximiza a utilidade (jogador X)
-    def max_value(state):
-        if terminal(state):
-            return utility(state), None
-        v = float('-inf')
-        best_action = None
-        for action in actions(state):
-            min_result, _ = min_value(result(state, action))
-            if min_result > v:
-                v = min_result
-                best_action = action
-                if v == 1:
-                    break
-        return v, best_action
-
-    # Minimiza a utilidade (jogador O)
-    def min_value(state):
-        if terminal(state):
-            return utility(state), None
-        v = float('inf')
-        best_action = None
-        for action in actions(state):
-            max_result, _ = max_value(result(state, action))
-            if max_result < v:
-                v = max_result
-                best_action = action
-                if v == -1:
-                    break
-        return v, best_action
-
-    # Escolhe a função com base no jogador atual
-    if current_player == X:
-        _, action = max_value(board)
+    if jogador_atual == X:
+        _, acao = max_value(board)
     else:
-        _, action = min_value(board)
+        _, acao = min_value(board)
 
-    return action
+    return acao
